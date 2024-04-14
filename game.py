@@ -6,7 +6,7 @@ SCREEN_WIDTH = 800
 
 pygame.init()
 window = pygame.display.set_mode((800, 600))
-
+clock = pygame.time.Clock()
 
 class Paddle(pygame.sprite.Sprite):
     def __init__(self, x, y, up, down):
@@ -24,9 +24,9 @@ class Paddle(pygame.sprite.Sprite):
 
     def update(self, keys_pressed):
         if(keys_pressed[self.up]):
-            self.y -= 1
+            self.y -= 5
         if(keys_pressed[self.down]):
-            self.y += 1
+            self.y += 5
         if(self.y <= 0):
             self.y = 0
         if(self.y + self.height >= SCREEN_HEIGHT):
@@ -43,18 +43,18 @@ class Ball(pygame.sprite.Sprite):
         self.rect = self.surf.get_rect()
         self.x = SCREEN_WIDTH / 2 - (self.width / 2)
         self.y = SCREEN_HEIGHT / 2 - (self.height / 2)
-        self.velX = 1
-        self.velY = 1
+        self.velX = 6
+        self.velY = 6
 
     def update(self, keys_pressed):
         if(self.x <= 0):
-            self.velX = 1
+            self.velX = 6
         if(self.x + self.width >= SCREEN_WIDTH):
-            self.velX = -1
+            self.velX = -6
         if(self.y <= 0):
-            self.velY = 1
+            self.velY = 6
         if(self.y + self.height >= SCREEN_HEIGHT):
-            self.velY = -1
+            self.velY = -6
 
         self.x += self.velX
         self.y += self.velY
@@ -82,4 +82,4 @@ while True:
         window.blit(gameObject.surf, (gameObject.x, gameObject.y))
 
     pygame.display.flip()
-
+    clock.tick(60)
